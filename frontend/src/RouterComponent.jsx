@@ -8,6 +8,7 @@ import DashboardComponent from './components/admin/DashboardComponent'
 import ShowUsersComponent from './components/admin/ShowUsersComponent'
 import AdminRouteMiddleware from './middleware/AdminRouteMiddleware'
 import LoginComponent from './components/auth/LoginComponent'
+import AddUserComponent from './components/admin/AddUserComponent'
 
 export default function RouterComponent() {
   return (
@@ -19,8 +20,9 @@ export default function RouterComponent() {
         <Route path="/news" element={<NewsComponent />} />
         <Route path="/Login" element={<LoginComponent />} />
 
-        <Route path="/admin" element={<AdminRouteMiddleware/>}>
+        <Route path="/admin" element={<AdminRouteMiddleware />}>
           <Route path='/admin' element={<DashboardComponent />} />
+          <Route path='add-user' element={<AddUserComponent />} />
           <Route path="show-users" element={<ShowUsersComponent />} />
         </Route>
       </Routes>
