@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import API from '../../API';
+import Swal from 'sweetalert2';
 
 export default function ShowUsersComponent() {
   let token = localStorage.getItem("token") ?? "";
@@ -19,6 +20,24 @@ export default function ShowUsersComponent() {
   useEffect(() => {
     getUser();
   }, []);
+
+  const deleteUser = (id) => {
+    API.delete(`/user/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(response => {
+      Swal.fire({
+        icon: "success",
+        title: res.data.message,
+        showConfirmButton: false,
+        timer: 1500
+      })
+      getUser();
+    }).catch(error => {
+
+    })
+  }
   console.log(users);
   return (
     <div>
@@ -49,7 +68,7 @@ export default function ShowUsersComponent() {
                   <td><img src={user.image} alt={user.name} width="50" height="50" /></td>
                   <td>
                     <button>Edit</button>
-                    <button>Delete</button>
+                    <button onClick={() => deleteUser(user._id)}>Delete</button>
                   </td>
                 </tr>)
 
